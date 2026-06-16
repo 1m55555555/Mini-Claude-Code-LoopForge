@@ -41,6 +41,7 @@
 └────────────────────┴──────────────────────────────┴──────────────────────┘
 ```
 
+
 ### 综合验收模式
 
 点击 **运行综合验收** 后，系统会自动执行一个复杂任务，并根据真实 trace 生成 8 项验收报告：
@@ -72,7 +73,7 @@ tools:
   task_update
   background_task_start
 ```
-
+![alt text](image.png)
 ## 架构图
 
 ```mermaid
@@ -96,7 +97,7 @@ flowchart LR
 ```mermaid
 sequenceDiagram
     participant User as User
-    participant Loop as Agent Loop
+    participant AgentLoop as Agent Loop
     participant Model as LLM
     participant Hook as Permission Hook
     participant Tool as Tool Registry
