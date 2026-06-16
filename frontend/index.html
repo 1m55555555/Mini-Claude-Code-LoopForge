@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mini Claude Code</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark" aria-label="CC">
+            <span>C</span>
+            <span>C</span>
+          </span>
+          <div>
+            <p class="eyebrow">Mini Claude Code</p>
+            <h1>Agent Harness</h1>
+          </div>
+        </div>
+
+        <div class="demo-actions">
+          <button id="demoButton" class="primary-side-button" type="button">运行综合验收</button>
+          <button id="sampleButton" class="ghost-button" type="button">填入示例任务</button>
+        </div>
+
+        <dl class="stats">
+          <div>
+            <dt><span class="stat-icon">⌘</span>工具调用</dt>
+            <dd id="toolCount">0</dd>
+          </div>
+          <div>
+            <dt><span class="stat-icon">✓</span>权限放行</dt>
+            <dd id="allowCount">0</dd>
+          </div>
+          <div>
+            <dt><span class="stat-icon">!</span>权限拒绝</dt>
+            <dd id="denyCount">0</dd>
+          </div>
+          <div>
+            <dt><span class="stat-icon">◇</span>待办事项</dt>
+            <dd id="todoCount">0</dd>
+          </div>
+          <div>
+            <dt><span class="stat-icon">↻</span>计划提醒</dt>
+            <dd id="reminderCount">0</dd>
+          </div>
+        </dl>
+
+        <section class="side-section">
+          <h2>当前计划</h2>
+          <ul id="todoList" class="compact-list"></ul>
+        </section>
+
+        <section class="side-section">
+          <div class="section-heading-row">
+            <h2>验收报告</h2>
+            <span id="acceptanceScore" class="score-pill">0/8</span>
+          </div>
+          <ul id="acceptanceList" class="acceptance-list"></ul>
+        </section>
+
+        <section class="side-section">
+          <h2>工具事件</h2>
+          <ul id="toolEvents" class="compact-list"></ul>
+        </section>
+      </aside>
+
+      <section class="chat-pane">
+        <header class="chat-header">
+          <div>
+            <p class="eyebrow">Workspace</p>
+            <h2>本地 Agent 工作台</h2>
+          </div>
+          <div class="run-meta">
+            <span id="statusBadge" class="status-badge">Ready</span>
+            <span id="runIdText"></span>
+          </div>
+        </header>
+
+        <section id="chatTranscript" class="chat-transcript">
+          <article class="message assistant-message">
+            <div class="avatar">A</div>
+            <div class="message-body">
+              <p>输入一个任务，或直接运行综合验收。我会把 agent loop 的决策、工具、权限、任务和后台事件整理成可读轨迹。</p>
+            </div>
+          </article>
+        </section>
+
+        <form id="runForm" class="composer">
+          <label class="sr-only" for="taskInput">指令</label>
+          <textarea
+            id="taskInput"
+            name="task"
+            rows="3"
+                placeholder="输入任务，或点击“填入示例任务”运行综合 runtime 验收。"
+            required
+          ></textarea>
+          <div class="composer-actions">
+          <span>loop / tools / hooks / todo / task / MCP / background 可观察</span>
+            <button id="runButton" type="submit">运行</button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="runtime-pane">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Runtime</p>
+            <h2>执行轨迹</h2>
+          </div>
+          <span id="eventCount">0 events</span>
+        </div>
+        <div class="view-switch" role="tablist" aria-label="轨迹视图">
+          <button class="view-button active" type="button" data-view="story">Story</button>
+          <button class="view-button" type="button" data-view="runtime">Runtime</button>
+          <button class="view-button" type="button" data-view="raw">Raw</button>
+        </div>
+        <ol id="timeline" class="timeline"></ol>
+      </aside>
+
+      <pre id="answerBox" class="hidden-output">等待指令。</pre>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
