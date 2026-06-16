@@ -95,6 +95,7 @@ flowchart LR
 ## Agent Loop 流程
 
 ```mermaid
+```mermaid
 sequenceDiagram
     participant User as User
     participant AgentLoop as Agent Loop
@@ -103,22 +104,24 @@ sequenceDiagram
     participant Tool as Tool Registry
     participant Log as Run Logger
 
-    User->>Loop: 输入自然语言任务
-    Loop->>Model: 发送 system prompt + messages
-    Model-->>Loop: 返回 assistant_message 或 tool_use
-    Loop->>Log: 记录 assistant_message
+    User->>AgentLoop: 输入自然语言任务
+    AgentLoop->>Model: 发送 system prompt + messages
+    Model-->>AgentLoop: 返回 assistant_message 或 tool_use
+    AgentLoop->>Log: 记录 assistant_message
 
     alt 模型请求工具
-        Loop->>Hook: PreToolUse 权限校验
-        Hook-->>Loop: allow / deny
-        Loop->>Tool: 调用 read_file/search/task/MCP 等工具
-        Tool-->>Loop: tool_result
-        Loop->>Log: 记录 permission_check 和 tool_result
-        Loop->>Model: 回灌工具结果
+        AgentLoop->>Hook: PreToolUse 权限校验
+        Hook-->>AgentLoop: allow / deny
+        AgentLoop->>Tool: 调用 read_file/search/task/MCP 等工具
+        Tool-->>AgentLoop: tool_result
+        AgentLoop->>Log: 记录 permission_check 和 tool_result
+        AgentLoop->>Model: 回灌工具结果
     else 模型完成任务
-        Loop->>Log: 记录 final 和 run_finished
-        Loop-->>User: 返回最终回答
+        AgentLoop->>Log: 记录 final 和 run_finished
+        AgentLoop-->>User: 返回最终回答
     end
+```
+
 ```
 
 ## 核心功能
