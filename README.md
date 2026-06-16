@@ -94,7 +94,7 @@ flowchart LR
 
 ## Agent Loop 流程
 
-```mermaid
+
 ```mermaid
 sequenceDiagram
     participant User as User
@@ -122,7 +122,6 @@ sequenceDiagram
     end
 ```
 
-```
 
 ## 核心功能
 
